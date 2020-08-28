@@ -1,10 +1,13 @@
 package app;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum Operador {
 	OPLOG("&&|\\|\\||!"){
 		@Override
 		public String toString() {
-			return "Operador Lógico";
+			return "Operador LÃ³gico";
 		}
 	},
 	OPREL("<|>|<=|>=|!=|=="){
@@ -16,13 +19,13 @@ public enum Operador {
 	OPARIT("\\+|-|\\*|/|%"){
 		@Override
 		public String toString() {
-			return "Operador Aritmético";
+			return "Operador AritmÃ©tico";
 		}
 	},
 	OPATRI("="){
 		@Override
 		public String toString() {
-			return "Operador Atribuição";
+			return "Operador AtribuiÃ§Ã£o";
 		}
 	};
 	
@@ -38,5 +41,23 @@ public enum Operador {
 	
 	public String getRegex() {
 		return regex;
+	}
+	
+	public static List<Operador> getAsList(){
+		return Arrays.asList(OPLOG, OPREL, OPARIT, OPATRI);
+	}
+	
+	public static boolean isOperador(String str) {
+		for (Operador it : getAsList()) {
+			if(str.matches(it.regex)) return true;
+		}
+		return false;
+	}
+	
+	public static Operador getOperadorType(String str) {
+		for (Operador it : getAsList()) {
+			if(str.matches(it.regex)) return it;
+		}
+		return null;	
 	}
 }
