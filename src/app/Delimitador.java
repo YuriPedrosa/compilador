@@ -4,62 +4,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum Delimitador {
-	PONTOVIRG(";"){
-		@Override
-		public String toString() {
-			return "Delimitador Ponto e Virgula";
-		}
-	},
+	PONTOVIRG(";"),
 	VIRG(","),
-	ESPACO(" "),
-	PONTOFIM("\\."){
-		@Override
-		public String toString() {
-			return "Delimitador Ponto Final";
-		}
-	},
-	DOISPONT(":"){
-		@Override
-		public String toString() {
-			return "Delimitador Dois Pontos";
-		}
-	},
-	ABREPAR("\\("){
-		@Override
-		public String toString() {
-			return "Delimitador Abre Parenteses";
-		}
-	},
-	FECHPAR("\\)"){
-		@Override
-		public String toString() {
-			return "Delimitador Fecha Parenteses";
-		}
-	},
-	HASH("#"){
-		@Override
-		public String toString() {
-			return "Delimitador Hashtag";
-		}
-	},
-	ARR("@"){
-		@Override
-		public String toString() {
-			return "Delimitador Arrouba";
-		}
-	},
-	ABRECHA("\\{"){
-		@Override
-		public String toString() {
-			return "Delimitador Abre Chave";
-		}
-	},
-	FECHCHA("\\}"){
-		@Override
-		public String toString() {
-			return "Delimitador Fecha Chaves";
-		}
-	};
+	PONTOFIM("\\."),
+	DOISPONT(":"),
+	ABREPAR("\\("),
+	FECHPAR("\\)"),
+	HASH("#"),
+	ARR("@"),
+	ABRECHA("\\{"),
+	FECHCHA("\\}");
 	
 	private String regex;
 	
@@ -72,7 +26,7 @@ public enum Delimitador {
 	}
 	
 	public static List<Delimitador> getAsList(){
-		return Arrays.asList(PONTOFIM, PONTOVIRG, DOISPONT, ABRECHA, ABREPAR, FECHCHA, FECHPAR, HASH, ARR, ESPACO, VIRG);
+		return Arrays.asList(PONTOFIM, PONTOVIRG, DOISPONT, ABRECHA, ABREPAR, FECHCHA, FECHPAR, HASH, ARR, VIRG);
 	}
 
 	public String getRegex() {
@@ -91,5 +45,10 @@ public enum Delimitador {
 			if(str.matches(it.regex)) return it;
 		}
 		return null;	
+	}
+	
+	@Override
+	public String toString() {
+		return "Delimitador";
 	}
 }

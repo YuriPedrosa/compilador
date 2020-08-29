@@ -59,9 +59,13 @@ public class AnalisadorLexico {
 			
 			for(int i = 0; i < tam; i++) {
 				ch = linha.substring(i, i+1);
-				if(Delimitador.isDelimitador(ch)) {
+				if(Delimitador.isDelimitador(ch) || ch.equals(" ")) {
+
 					if(!coment && lexema.length() >= 2 && lexema.startsWith("//")) {
 						lexema = "";
+						if(Delimitador.isDelimitador(ch)) {
+							addToken(ch, numeroLinha);	
+						}
 						break;
 					}
 					
@@ -77,6 +81,11 @@ public class AnalisadorLexico {
 					
 					if(!coment && (!lexema.isEmpty() && !lexema.contains("/*"))) 
 						addToken(lexema, numeroLinha);
+					
+					if(Delimitador.isDelimitador(ch)) {
+						addToken(ch, numeroLinha);	
+					}
+					
 					lexema = "";
 				} else lexema = lexema + ch;
 			}
@@ -85,6 +94,12 @@ public class AnalisadorLexico {
 	}
 	
 	private void addToken(String str,int linha) {
+		
+		if(Delimitador.isDelimitador(str)) {
+			Delimitador d = Delimitador.getDelimitadorType(str);
+			tokens.add(new Token(d.name(), str, d.toString(), linha));
+			return;
+		}
 		
 		if(Classes.isNumber(str)) {
 			tokens.add(new Token(Classes.NUMBER.name(), str, Classes.NUMBER.toString(), linha));
@@ -99,6 +114,12 @@ public class AnalisadorLexico {
 		if(Operador.isOperador(str)) {
 			Operador o = Operador.getOperadorType(str);
 			tokens.add(new Token(o.name(), str, o.toString(), linha));
+			return;
+		}
+		
+		if(Tipo.isTipo(str)) {
+			Tipo t = Tipo.getTipoType(str);
+			tokens.add(new Token(t.name(), str, t.toString(), linha));
 			return;
 		}
 		

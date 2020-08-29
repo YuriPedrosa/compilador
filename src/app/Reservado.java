@@ -40,4 +40,9 @@ public enum Reservado {
 		}
 		return null;	
 	}
+	
+	@Override
+	public String toString() {
+		return "Palavra Reservada";
+	}
 }

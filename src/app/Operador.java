@@ -7,7 +7,7 @@ public enum Operador {
 	OPLOG("&&|\\|\\||!"){
 		@Override
 		public String toString() {
-			return "Operador LÃ³gico";
+			return "Operador Lógico";
 		}
 	},
 	OPREL("<|>|<=|>=|!=|=="){
@@ -19,13 +19,13 @@ public enum Operador {
 	OPARIT("\\+|-|\\*|/|%"){
 		@Override
 		public String toString() {
-			return "Operador AritmÃ©tico";
+			return "Operador Aritmético";
 		}
 	},
 	OPATRI("="){
 		@Override
 		public String toString() {
-			return "Operador AtribuiÃ§Ã£o";
+			return "Operador Atribuição";
 		}
 	};
 	
