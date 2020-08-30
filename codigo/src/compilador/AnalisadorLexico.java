@@ -15,7 +15,6 @@ public class AnalisadorLexico {
 	private String ch; 
 	private String lexema;
 	private int numeroLinha;
-	private boolean coment;
 	private HashMap<String, ER> map;
 
 	public List<Token> getTokens() {
@@ -26,7 +25,6 @@ public class AnalisadorLexico {
 		this.arquivo = new BufferedReader(new FileReader(nomeArquivo));
 		this.linha = "";
 		this.numeroLinha = 0;
-		this.coment = false;
 		this.lexema = "";
 		this.tokens = new ArrayList<Token>();
 		this.map = new HashMap<String, ER>();
@@ -57,9 +55,10 @@ public class AnalisadorLexico {
 	public void analisar() {
 		getNewLine();
 		while(linha != null) {
+			linha = linha.trim();
 			for(int i = 0 ; i < linha.length(); i++) {
 				ch = linha.substring(i, i+1);		
-				
+								
 				if(ch.equals("/")) {
 					String next = getNextChar(i);
 					if(next.equals("/")) break;
@@ -68,12 +67,26 @@ public class AnalisadorLexico {
 							getNewLine();
 							if(linha == null) break;
 						}
-						linha.indexOf("*/");
+						if(linha.indexOf("*/")+1 == linha.length()-1) break;
+						else i = linha.indexOf("*/")+2;
 					}
 				}
 				
-			}
-			
+				ch = linha.substring(i, i+1);
+				if(map.get("Operador").is(ch)) {
+					String withNext = ch+getNextChar(i);
+					addToken(lexema, numeroLinha);
+					if(map.get("Operador").is(withNext)) {
+						addToken(withNext, numeroLinha);
+						i++;
+					} else addToken(ch, numeroLinha);
+					lexema = "";
+				} else if(map.get("Delimitador").is(ch) || ch.equals(" ")) {
+					addToken(lexema, numeroLinha);	
+					addToken(ch, numeroLinha);
+					lexema = "";
+				} else lexema += ch;
+			}		
 			getNewLine();
 		}
 	}
@@ -86,6 +99,8 @@ public class AnalisadorLexico {
 		
 	private void addToken(String str, int linha) {
 		
+		if(str.isEmpty() || str.equals(" ")) return;
+
 		for (Map.Entry<String, ER> it: map.entrySet()) {
 			if(it.getValue().is(str)) {
 				tokens.add(new Token(it.getValue().getType(str), str, it.getValue().getType(str), linha));

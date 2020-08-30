@@ -3,7 +3,8 @@ int soma(int a, int b)
     return a + b;
 }
 // asdasdasdasda
-/* asd */
+/* 
+asd */
 
 int main()
 {
@@ -12,7 +13,7 @@ int main()
 
     if(a < 10)
     {
-        if(b < 10)
+        if(b <= 10)
         {
             a = 10;
         }
