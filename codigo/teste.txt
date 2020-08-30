@@ -2,6 +2,8 @@ int soma(int a, int b)
 {
     return a + b;
 }
+// asdasdasdasda
+/* asd */
 
 int main()
 {
@@ -17,7 +19,7 @@ int main()
     }
     else
     {
-        b = 1 - (( 4 * a / 4 ) % 5);
+        b = 1-((4*a/4)%5);
     }
 
     if(a < 10)
