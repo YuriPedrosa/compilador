@@ -82,9 +82,12 @@ public class AnalisadorLexico {
 					} else addToken(ch, numeroLinha);
 					lexema = "";
 				} else if(map.get("Delimitador").is(ch) || ch.equals(" ")) {
-					addToken(lexema, numeroLinha);	
-					addToken(ch, numeroLinha);
-					lexema = "";
+					if(ch.equals(".") || ch.equals("#")) lexema += ch;
+					else {
+						addToken(lexema, numeroLinha);	
+						addToken(ch, numeroLinha);
+						lexema = "";
+					}
 				} else lexema += ch;
 			}		
 			getNewLine();
@@ -108,7 +111,7 @@ public class AnalisadorLexico {
 			}
 		}
 		
-		tokens.add(new Token("UKNOWN", str, "Desconhecido", linha));
+		tokens.add(new Token("ERRO", str, "Desconhecido", linha));
     }
     
 

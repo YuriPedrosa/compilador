@@ -2,15 +2,19 @@ int soma(int a, int b)
 {
     return a + b;
 }
+
 // asdasdasdasda
 /* 
-asd */
+asd 
+*/
 
 int main()
 {
     int a;
     int b;
-
+    float c;
+    private string d = "123.123";
+    
     if(a < 10)
     {
         if(b <= 10)
@@ -25,7 +29,7 @@ int main()
 
     if(a < 10)
     {
-        c = a;
+        c = a+0.6;
     }
 
 

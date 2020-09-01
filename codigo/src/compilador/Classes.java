@@ -6,11 +6,14 @@ public class Classes extends ER{
 	
 	public Classes() {
 		super(new HashMap<>());
-		regex.put("LETRA", "[A-Za-z]");
-		regex.put("DIGITO", "[0-9]");
-		regex.put("INTEIRO", "(" + regex.get("DIGITO") + ")*");
-		regex.put("LITERAL", "^\".*\"$");
-		String generic = "(" + regex.get("LETRA") + "|" + regex.get("DIGITO") + ")*";
-		regex.put("ID", regex.get("LETRA") + generic);
+		String letra = "[A-Za-z]";
+		String digito = "[0-9]";
+		String generic = "(" + letra + "|" + digito + ")*";
+		regex.put("INTEIRO", "(" + digito + ")+");
+		regex.put("FLOAT", regex.get("INTEIRO") + "\\." + regex.get("INTEIRO"));
+		regex.put("CHAR", "\'" + generic  +"\'");
+		regex.put("STRING", "\"(" + generic  +")*\"");
+		regex.put("ID", letra + generic);
+		regex.put("CONST", "#define");
 	}
 }
