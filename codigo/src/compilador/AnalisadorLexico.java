@@ -33,7 +33,6 @@ public class AnalisadorLexico {
 		map.put("Reservado", new Reservado());
 		map.put("Tipo", new Tipo());
 		map.put("Classes", new Classes());
-		
 	}
 
 	public void fechaArquivo() throws IOException {
@@ -106,7 +105,9 @@ public class AnalisadorLexico {
 
 		for (Map.Entry<String, ER> it: map.entrySet()) {
 			if(it.getValue().is(str)) {
-				tokens.add(new Token(it.getValue().getType(str), str, it.getValue().getType(str), linha));
+				String type = it.getValue().getType(str);
+				String description = it.getValue().getDescription(type);
+				tokens.add(new Token(type, str, description, linha));
 				return;
 			}
 		}
